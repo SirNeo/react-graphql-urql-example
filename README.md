@@ -8,7 +8,7 @@ yarn global add create-react-app
 create-react-app react-graphql-urql-example
 
 ### Run app
-cd hackernews-react-urql
+cd react-graphql-urql-example
 yarn start
 
 ### Install dependencies
