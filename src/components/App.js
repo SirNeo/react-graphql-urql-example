@@ -1,5 +1,10 @@
-import ProjectList from './ProjectList'
+import NoteList from './NoteList'
+import CreateNote from './CreateNote'
 
-const App = () => <ProjectList />
+const App = () => 
+    <div>
+        <NoteList />
+        <CreateNote />
+    </div>
 
 export default App;

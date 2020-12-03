@@ -1,10 +1,10 @@
 import React from 'react'
 import { useQuery } from 'urql'
-import Project from './Project'
+import Note from './Note'
 
-import { PROJECT, INITIATIVE_NOTE } from '../queries/queries'
+import { INITIATIVE_NOTE } from '../queries/queries'
 
-const ProjectList = () => {
+const NoteList = () => {
 
     const [result] = useQuery({ query: INITIATIVE_NOTE.GET_ALL })
     const { data, fetching, error } = result
@@ -13,13 +13,13 @@ const ProjectList = () => {
     if (error) return <div>Error!!</div>
     
     console.dir(data);
-    const projectsToRender = data.notes
+    const notesToRender = data.notes
     
     return (
       <div>
-        {projectsToRender.map(project => <Project key={project.id} project={project} />)}
+        {notesToRender.map(note => <Note key={note.id} note={note} />)}
       </div>
     );
   };
 
-export default ProjectList
+export default NoteList
