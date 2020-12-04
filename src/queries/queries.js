@@ -48,12 +48,14 @@ export const PROJECT = {
 export const INITIATIVE_NOTE = {
     GET_ALL: `
         query consultaNotas {
-            notes {
-                projectId
-                note
-                notesId
-                lstUpd
-                updBy
+            initiativeNotes {
+                results {
+                    id
+                    projectId
+                    note
+                    updatedBy
+                    lastUpdated
+                }
             }
         }`,
     GET_ONE_BY_ID: `

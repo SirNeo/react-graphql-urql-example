@@ -13,7 +13,7 @@ const NoteList = () => {
     if (error) return <div>Error!!</div>
     
     console.dir(data);
-    const notesToRender = data.notes
+    const notesToRender = data.initiativeNotes.results
     
     return (
       <div>
