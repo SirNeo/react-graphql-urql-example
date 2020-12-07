@@ -3,7 +3,8 @@ import { useQuery } from 'urql'
 
 import Table from '../../components/Table'
 import PageContext from '../../Context/Pagination'
-import { GET_ALL_PERSONS_VARS, FRAGMENT_PERSON } from '../../queries/person'
+import { GET_ALL_PERSONS_VARS } from '../../queries/person'
+import CreatePerson from './Create'
  
 const PersonList = () => {
 
@@ -11,7 +12,7 @@ const PersonList = () => {
   const [ size, setSize] = React.useState(10)
 
   const [ executeQuery ] = useQuery({ 
-    query: GET_ALL_PERSONS_VARS + FRAGMENT_PERSON,
+    query: GET_ALL_PERSONS_VARS,
     variables: { page, size }
   })
   
@@ -30,9 +31,12 @@ const PersonList = () => {
   }
 
   return (
+    <>
+    <CreatePerson />
     <PageContext.Provider value={ info }>
       <Table rows={personsToRender} />
     </PageContext.Provider>
+    </>
   );
 };
 
