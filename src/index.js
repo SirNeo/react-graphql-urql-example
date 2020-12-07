@@ -9,8 +9,9 @@ import { cacheExchange } from '@urql/exchange-graphcache'
 const cache = cacheExchange({})
 
 const client = new Client({
-  url: 'http://localhost:8080/api/tract',
+  url: 'http://localhost:8080/api/',
   exchanges: [dedupExchange, cache, fetchExchange],
+  requestPolicy: 'network-only'
 })
 
 ReactDOM.render(

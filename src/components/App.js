@@ -1,10 +1,8 @@
-import NoteList from './NoteList'
-import CreateNote from './CreateNote'
+import PersonList from './PersonList'
 
 const App = () => 
     <div>
-        <NoteList />
-        <CreateNote />
+        <PersonList />
     </div>
 
 export default App;
