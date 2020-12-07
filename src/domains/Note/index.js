@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery } from 'urql'
 import Note from './Note'
 
-import { INITIATIVE_NOTE } from '../queries/queries'
+import { INITIATIVE_NOTE } from '../../queries/queries'
 
 const NoteList = () => {
 

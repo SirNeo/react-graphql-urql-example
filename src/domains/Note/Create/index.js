@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useMutation } from 'urql';
-import { INITIATIVE_NOTE } from '../queries/mutations'
+import { INITIATIVE_NOTE } from '../../../queries/mutations'
 
 const CreateNote = props => {
 

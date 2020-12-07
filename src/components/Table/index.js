@@ -2,10 +2,9 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 
 import { useTable, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table'
-// A great library for fuzzy filtering/sorting items
 import { matchSorter } from 'match-sorter'
 
-import PageContext from './Pagination'
+import PageContext from '../../Context/Pagination'
 
 const Styles = styled.div`
   padding: 1rem;
@@ -33,7 +32,6 @@ const Styles = styled.div`
     }
   }
 `
-
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -66,7 +64,7 @@ function GlobalFilter({
     )
 }
   
-  // Define a default UI for filtering
+// Define a default UI for filtering
 function DefaultColumnFilter({
     column: { filterValue, preFilteredRows, setFilter },
   }) {
@@ -83,8 +81,7 @@ function DefaultColumnFilter({
     )
 }
   
-// This is a custom filter UI for selecting
-// a unique option from a list
+// This is a custom filter UI for selecting a unique option from a list
 function SelectColumnFilter({
     column: { filterValue, setFilter, preFilteredRows, id },
   }) {
@@ -209,8 +206,8 @@ function fuzzyTextFilterFn(rows, id, filterValue) {
 fuzzyTextFilterFn.autoRemove = val => !val
 
 function TableStructure({ columns, data }) {
-
-    const filterTypes = React.useMemo(
+  
+  const filterTypes = React.useMemo(
         () => ({
           // Add a new fuzzyTextFilterFn filter type.
           fuzzyText: fuzzyTextFilterFn,
@@ -230,124 +227,123 @@ function TableStructure({ columns, data }) {
         []
       )
 
-    const defaultColumn = React.useMemo(
-        () => ({
-          // Let's set up our default Filter UI
-          Filter: DefaultColumnFilter,
-        }),
-        []
-      )
-
-    // const [ pageTable, setPageTable] = React.useState(1)
-
-    // Use the state and functions returned from useTable to build your UI
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        prepareRow,
-        rows, 
-        
-        // state,
-        visibleColumns,
-        preGlobalFilteredRows,
-        setGlobalFilter,
-
-        state: { filters, globalFilter },
-
-    } = useTable({
-            columns,
-            data,
-            defaultColumn,
-            filterTypes,
-        },
-        useFilters,
-        useGlobalFilter
+  const defaultColumn = React.useMemo(
+      () => ({
+        // Let's set up our default Filter UI
+        Filter: DefaultColumnFilter,
+      }),
+      []
     )
 
-    const info = useContext(PageContext)
-  
-    // Render the UI for your table
-    return (
-        <>
-        
-        <span> Found {info.total} rows</span>
-        <table {...getTableProps()}>
-            <thead>
-            {headerGroups.map(headerGroup => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map(column => (
-                    <th {...column.getHeaderProps()}>
-                        {column.render('Header')}
-                        <div>{column.canFilter ? column.render('Filter') : null}</div>
-                    </th>
-                ))}
-                </tr>
-            ))}
-            <tr>
-                <th
-                colSpan={visibleColumns.length}
-                style={{
-                    textAlign: 'left',
-                }}
-                >
-                <GlobalFilter
-                    preGlobalFilteredRows={preGlobalFilteredRows}
-                    globalFilter={globalFilter}
-                    setGlobalFilter={setGlobalFilter}
-                />
+  // const [ pageTable, setPageTable] = React.useState(1)
+
+  // Use the state and functions returned from useTable to build your UI
+  const {
+      getTableProps,
+      getTableBodyProps,
+      headerGroups,
+      prepareRow,
+      rows, 
+      
+      // state,
+      visibleColumns,
+      preGlobalFilteredRows,
+      setGlobalFilter,
+
+      state: { filters, globalFilter },
+
+  } = useTable({
+          columns,
+          data,
+          defaultColumn,
+          filterTypes,
+      },
+      useFilters,
+      useGlobalFilter
+  )
+
+  const info = useContext(PageContext)
+
+  // Render the UI for your table
+  return (
+    <>
+    <span> Found {info.total} rows</span>
+    <table {...getTableProps()}>
+        <thead>
+        {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map(column => (
+                <th {...column.getHeaderProps()}>
+                    {column.render('Header')}
+                    <div>{column.canFilter ? column.render('Filter') : null}</div>
                 </th>
-            </tr>
-            </thead>
-            <tbody {...getTableBodyProps()}>
-            {rows.map((row, i) => {
-                prepareRow(row)
-                return (
-                <tr {...row.getRowProps()}>
-                    {row.cells.map(cell => {
-                    return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                    })}
-                </tr>
-                )
-            })}
-            </tbody>
-        </table>
-        <div className="pagination">
-            <button onClick={() => info.setPage(info.page - 1)} disabled={info.page <=  1}>Prev Page</button>  
-            &nbsp;Page {info.page} of {info.pages}&nbsp;
-            <button onClick={() => info.setPage(info.page + 1)} disabled={info.page >= info.pages}>Next Page</button>
-            
-            {<select
-                value={info.size}
-                onChange={e => {
-                    info.setSize(Number(e.target.value))
-                    info.setPage(1)
-                }}
-            >
-            {[10, 20, 30, 40, 50].map(size => (
-                <option key={size} value={size}>
-                    Show {size}
-                </option>
             ))}
-            </select> }
-        </div>
-        <br/>
-        <div>
-              Pagination:
-            <pre>
-              <code>{JSON.stringify(info, null, 2)}</code>
-            </pre>
-        </div>
-        <br/>
-        <div>
-              Filters:
-            <pre>
-              <code>{JSON.stringify(filters, null, 1)}</code>
-            </pre>
-        </div>
-      </>
-    )
-  }
+            </tr>
+        ))}
+        <tr>
+            <th
+            colSpan={visibleColumns.length}
+            style={{
+                textAlign: 'left',
+            }}
+            >
+            <GlobalFilter
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                globalFilter={globalFilter}
+                setGlobalFilter={setGlobalFilter}
+            />
+            </th>
+        </tr>
+        </thead>
+        <tbody {...getTableBodyProps()}>
+        {rows.map((row, i) => {
+            prepareRow(row)
+            return (
+            <tr {...row.getRowProps()}>
+                {row.cells.map(cell => {
+                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                })}
+            </tr>
+            )
+        })}
+        </tbody>
+    </table>
+    <div className="pagination">
+        <button onClick={() => info.setPage(info.page - 1)} disabled={info.page <=  1}>Prev Page</button>  
+        &nbsp;Page {info.page} of {info.pages}&nbsp;
+        <button onClick={() => info.setPage(info.page + 1)} disabled={info.page >= info.pages}>Next Page</button>
+        
+        {<select
+            value={info.size}
+            onChange={e => {
+                info.setSize(Number(e.target.value))
+                info.setPage(1)
+            }}
+        >
+        {[10, 20, 30, 40, 50].map(size => (
+            <option key={size} value={size}>
+                Show {size} rows
+            </option>
+        ))}
+        </select> }
+    </div>
+    <br/>
+    <div>
+          Pagination:
+        <pre>
+          <code>{JSON.stringify(info, null, 2)}</code>
+        </pre>
+    </div>
+    <br/>
+    <div>
+          Filters:
+        <pre>
+          <code>{JSON.stringify(filters, null, 1)}</code>
+        </pre>
+    </div>
+    </>
+  )
+}
 
 function filterGreaterThan(rows, id, filterValue) {
     return rows.filter(row => {
@@ -358,12 +354,11 @@ function filterGreaterThan(rows, id, filterValue) {
 
 filterGreaterThan.autoRemove = val => typeof val !== 'number'
 
-function Table({ rowsToRender }) {
+function Table({ rows }) {
 
-    rowsToRender = rowsToRender == null ? [] : rowsToRender;
+    rows = rows == null ? [] : rows;
 
-    const columns = React.useMemo(
-        () => [
+    const cols = [
             {
             Header: 'People',
             columns: [
@@ -406,11 +401,11 @@ function Table({ rowsToRender }) {
                 // },
             ],
             }
-        ],
-        []
-    )
+        ]
 
-    const data = React.useMemo(() => rowsToRender, [])
+    const columns = React.useMemo( () => cols, [])
+
+    const data = React.useMemo(() => rows, [])
 
     return (
         <Styles>

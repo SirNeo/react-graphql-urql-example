@@ -1,4 +1,4 @@
-import PersonList from './PersonList'
+import PersonList from '../Person'
 
 const App = () => 
     <div>
