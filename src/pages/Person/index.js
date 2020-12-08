@@ -2,9 +2,10 @@ import React from 'react'
 import { useQuery } from 'urql'
 
 import Table from '../../components/Table'
-import PageContext from '../../Context/Pagination'
+import PageContext from '../../context/Pagination'
 import { GET_ALL_PERSONS_VARS } from '../../queries/person'
 import CreatePerson from './Create'
+import Loading from '../../components/Loading'
  
 const PersonList = () => {
 
@@ -18,7 +19,7 @@ const PersonList = () => {
   
   const { data, fetching, error } = executeQuery
     
-  if (fetching) return <div>Fetching...</div>
+  if (fetching) return <Loading />
   if (error) return <div>Error!! {error}</div>   
     
   const personsToRender = data.persons.results

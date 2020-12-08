@@ -9,21 +9,13 @@ const CreateNote = props => {
   const [projectId, setProjectId] = React.useState('')
 
   const [state, executeMutation] = useMutation(INITIATIVE_NOTE.NEW)
-  
-  console.log('state:');
-  console.dir({state});
 
   const submit = () => {
-    //console.log(`note: ${note}`)
 
     const variables = { note: note, projectId: projectId }
 
-    console.log('variables: ')
-    console.log({variables})
-
     executeMutation(variables).then(result => {
-      console.log('ejecutado mutacion');
-      console.log(result);
+
     })
 
   };

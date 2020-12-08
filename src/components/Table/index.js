@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { useTable, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table'
 import { matchSorter } from 'match-sorter'
 
-import PageContext from '../../Context/Pagination'
+import PageContext from '../../context/Pagination'
 
 const Styles = styled.div`
   padding: 1rem;
