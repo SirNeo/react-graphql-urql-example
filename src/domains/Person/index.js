@@ -2,9 +2,8 @@ import React from 'react'
 import { useQuery } from 'urql'
 
 import Table from '../../components/Table'
-import PageContext from '../../Context/Pagination'
+import PageContext from '../../context/Pagination'
 import { GET_ALL_PERSONS_VARS } from '../../queries/person'
-import CreatePerson from './Create'
  
 const PersonList = () => {
 
@@ -19,7 +18,7 @@ const PersonList = () => {
   const { data, fetching, error } = executeQuery
     
   if (fetching) return <div>Fetching...</div>
-  if (error) return <div>Error!! {error}</div>   
+  if (error) return <div>Error: The api server is not available</div>   
     
   const personsToRender = data.persons.results
   const info = {
@@ -32,7 +31,6 @@ const PersonList = () => {
 
   return (
     <>
-    <CreatePerson />
     <PageContext.Provider value={ info }>
       <Table rows={personsToRender} />
     </PageContext.Provider>
