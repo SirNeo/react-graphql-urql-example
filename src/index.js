@@ -8,10 +8,17 @@ import { cacheExchange } from '@urql/exchange-graphcache'
 
 const cache = cacheExchange({})
 
+var headers = { 'Access-Control-Allow-Origin': '*' };
+
 const client = new Client({
   url: 'http://localhost:8080/api/',
   exchanges: [dedupExchange, cache, fetchExchange],
-  requestPolicy: 'network-only'
+  requestPolicy: 'network-only',
+  fetchOptions: () => {
+    return {
+      headers: { headers },
+    };
+  },
 })
 
 ReactDOM.render(
