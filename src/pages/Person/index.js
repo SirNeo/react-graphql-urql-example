@@ -34,7 +34,7 @@ const PersonList = () => {
     <>
     <CreatePerson />
     <PageContext.Provider value={ info }>
-      <Table rows={personsToRender} />}
+      <Table rows={personsToRender} />
     </PageContext.Provider>
     </>
   );

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
-import App from './domains/App'
+import App from './pages/App'
 
 import { Provider, Client, dedupExchange, fetchExchange } from 'urql'
 import { cacheExchange } from '@urql/exchange-graphcache'
